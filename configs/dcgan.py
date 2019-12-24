@@ -1,5 +1,3 @@
-dataroot = "data/faces"
-
 # Generator
 G = dict(input_dim=100, output_dim=3, num_filters=[512, 256, 128, 64])
 

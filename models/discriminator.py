@@ -7,10 +7,11 @@ class DCDiscriminator(nn.Module):
         self.hidden_layer = nn.Sequential()
         for i in range(len(num_filters)):
             if i == 0:
-                conv = nn.Conv2d(input_dim, num_filters[i], kernel_size=4, stride=2, padding=1, bias=False)
+                conv = nn.Conv2d(input_dim, num_filters[i], kernel_size=4, stride=2,
+                                 padding=1, bias=False)
             else:
-                conv = nn.Conv2d(num_filters[i-1], num_filters[i], kernel_size=4, stride=2, padding=1, bias=False)
-
+                conv = nn.Conv2d(num_filters[i-1], num_filters[i], kernel_size=4, stride=2,
+                                 padding=1, bias=False)
             conv_name = 'conv' + str(i + 1)
             self.hidden_layer.add_module(conv_name, conv)
 

@@ -116,14 +116,16 @@ def main():
             D.zero_grad()
             real = data[0].to(device)
             bs = real.size(0)
-            label = torch.full((bs, ), real_label, device=device)
 
             # train D
+            # Compute loss of true images, label is 1
+            label = torch.full((bs,), real_label, device=device)
             output = D(real).view(-1)
             errD_real = criterion(output, label)
             errD_real.backward()
             D_x = output.mean().item()
 
+            # Compute loss of fake images, label is 0
             noise = torch.randn(bs, cfg.G['input_dim'], 1, 1, device=device)
             fake = G(noise)
             label.fill_(fake_label)
@@ -136,6 +138,8 @@ def main():
             optimizerD.step()
 
             # train G
+            # The purpose of the generator is to make the generated picture more realistic
+            # label is 1
             G.zero_grad()
             label.fill_(real_label)
             output = D(fake).view(-1)
